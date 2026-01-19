@@ -1,0 +1,30 @@
+<div class="card">
+    <div class="card-header bg-transparent d-flex flex-row align-items-center justify-content-between">
+        <h5 class="card-title">Dirección de {{ tipo() }}</h5>
+        <div>
+            <button type="button" class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+        </div>
+    </div>
+    <div class="card-body">
+
+        <div class="d-flex flex-row justify-content-start mt-3">
+            <div>
+                <h6 class="card-subtitle mb-2 text-body-secondary"><strong>Nombre completo:</strong></h6>
+                <p class="card-text">{{ direccion()?.datosContacto?.nombre}} {{direccion()?.datosContacto?.apellidos}}</p>
+            </div>
+        </div>
+        <div class="d-flex flex-row justify-content-start mt-3">
+            <div>
+                <h6 class="card-subtitle mb-2 text-body-secondary"><strong>Pais:</strong></h6>
+                <p class="card-text">{{ direccion()?.pais }}</p>
+            </div>
+        </div>
+        <div class="d-flex flex-row justify-content-start mt-3">
+            <div>
+                <h6 class="card-subtitle mb-2 text-body-secondary"><strong>Direccion completa:</strong></h6>
+                <p class="card-text">{{ direccion()?.calle }}, {{ direccion()?.cp }} - {{ direccion()?.municipio?.DMUN50 }}, {{ direccion()?.provincia?.PRO }}</p>
+            </div>
+        </div>
+
+    </div>
+</div>

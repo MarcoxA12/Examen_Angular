@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row border border-secondary rounded p-3 mb-3">
+        <div class="col-10">
+            <!-- tarjeta de mini anuncio -->
+            <div class="card mb-3" style="max-width: 100%; border: none">
+                <div class="row g-0">
+                    <div class="col-md-2">
+                        <!-- imagen principal del anuncio -->
+                        @if (anuncio().imagenes && anuncio().imagenes.length > 0) {
+                            <img [src]="anuncio().imagenes[0]" class="img-fluid rounded-start" alt="Imagen Principal Anuncio">
+                        } @else {
+                            <img src="/images/previsualizador_imagenes_anuncio_placeholder.png" class="img-fluid rounded-start" alt="Imagen Principal Anuncio">
+                        }
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ anuncio().marca }}, {{ anuncio().modelo }} ({{ anuncio().anioModelo }})</h5>
+                            <p class="card-text">Comprada: {{ anuncio().fechaCompra | date:'dd/MM/yyyy' }}, Talla {{ anuncio().talla }}, {{ anuncio().grupoCambio }}</p>
+                            <!-- precio de venta-->
+                            <p class="card-text"><strong>{{ anuncio().precioVenta | currency:'EUR' }}</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- botones operacion anuncio: editar, o eliminar -->
+        <div class="col-2 d-flex flex-column justify-content-start align-items-center">
+            <button class="btn btn-outline-dark mb-2 w-100"><i class="fa-solid fa-pencil"></i> Editar</button>
+            <button class="btn btn-outline-danger w-100"><i class="fa-solid fa-trash"></i> Eliminar</button>
+        </div>
+    </div>
+</div>

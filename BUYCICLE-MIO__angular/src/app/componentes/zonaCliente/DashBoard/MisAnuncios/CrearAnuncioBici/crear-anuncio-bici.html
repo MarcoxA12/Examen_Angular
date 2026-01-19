@@ -1,0 +1,330 @@
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <form [formGroup]="miForm">
+            <div class="container">
+                <div class="row mb-3">
+                    <div class="col">
+                        <h3>Crea el anuncio de tu bicicleta</h3>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="accordion accordion-flush" id="accordionFlushExample">
+                            <div class="accordion-item mb-2">
+                                <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#1-encuentratubici" aria-expanded="false" aria-controls="1-encuentratubici">
+                                    <span class="me-3" style="border-radius: 50px; background-color: black; color:white; width: 30px; height: 30px; display: inline-flex; justify-content: center; align-items: center;"> 1 </span> Encuentra tu bici
+                                </button>
+                                </h2>
+                                <div id="1-encuentratubici" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div class="mb-3">
+                                            <span class="text-muted">¿Que tipo de bici vendes?</span>
+                                            <select class="form-select" aria-label="Default select example" formControlName="pathCategoria">
+                                            @for(tipo of ["Carretera","Triatlon o contrarreloj", "Gravel", "Montaña", "Urbana y paseo"]; track $index)
+                                            {
+                                                <option [value]="tipo">{{tipo}}</option>
+                                            }
+                                            </select>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="marca" placeholder="Marca" formControlName="marca">
+                                            <label for="marca">Marca</label>
+                                            @if (miForm.get('marca')?.hasError('required') && miForm.get('marca')?.touched) {
+                                                <div class="text-danger small mt-1">La marca es obligatoria.</div>
+                                            }
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="modelo" placeholder="Modelo" formControlName="modelo">
+                                            <label for="modelo">Modelo</label>
+                                            
+                                            @if (miForm.get('modelo')?.hasError('anuncioDuplicado')) {
+                                                <div class="text-danger small mt-1">
+                                                    <i class="fa-solid fa-triangle-exclamation"></i> Ya tienes un anuncio con esta Marca y Modelo.
+                                                </div>
+                                            }
+                                            @if (miForm.get('modelo')?.hasError('required') && miForm.get('modelo')?.touched) {
+                                                <div class="text-danger small mt-1">El modelo es obligatorio.</div>
+                                            }
+                                            @if (miForm.get('modelo')?.pending) {
+                                                <div class="text-info small mt-1">Comprobando...</div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item mb-2">
+                                <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#2-addInformacionBasica" aria-expanded="false" aria-controls="2-addInformacionBasica">
+                                    <span class="me-3" style="border-radius: 50px; background-color: black; color:white; width: 30px; height: 30px; display: inline-flex; justify-content: center; align-items: center;"> 2 </span> Añade información básica
+                                </button>
+                                </h2>
+                                <div id="2-addInformacionBasica" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div class="d-flex flex-row justify-content-between align-items-center">
+                                            <div class="mb-3 me-2" style="flex: 1;">
+                                                <span class="text-muted">Talla del cuadro</span>
+                                                <select class="form-select" aria-label="Default select example" formControlName="talla">
+                                                @for(tipo of tallas; track $index)
+                                                {
+                                                    <option [value]="tipo">{{tipo}}</option>
+                                                }
+                                                </select>
+                                                @if (miForm.get('talla')?.hasError('required') && miForm.get('talla')?.touched) {
+                                                <div class="text-danger small mt-1">La talla es obligatoria.</div>
+                                            }
+                                            </div>
+                                            <div class="mb-3" style="flex: 1;">
+                                                <span class="text-muted">Color</span>
+                                                <select class="form-select" aria-label="Default select example" formControlName="color">
+                                                @for(tipo of ["Negro","Blanco","Gris","Rojo","Azul","Verde","Naranja","Morado"]; track $index)
+                                                {
+                                                    <option [value]="tipo">{{tipo}}</option>
+                                                }
+                                                </select>
+                                                @if (miForm.get('color')?.hasError('required') && miForm.get('color')?.touched) {
+                                                <div class="text-danger small mt-1">El color es obligatorio.</div>
+                                            }
+                                            </div>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="anioModelo" placeholder="Año Modelo" formControlName="anioModelo">
+                                            <label for="anioModelo">Año Modelo</label>
+                                            @if (miForm.get('anioModelo')?.hasError('required') && miForm.get('anioModelo')?.touched) {
+                                                <div class="text-danger small mt-1">El año modelo es obligatorio.</div>
+                                            }
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="date" class="form-control" id="fechaCompra" placeholder="Fecha de compra" formControlName="fechaCompra">
+                                            <label for="fechaCompra">Fecha de compra</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="materialCuadro" placeholder="Material" formControlName="materialCuadro">
+                                            <label for="materialCuadro">Material del cuadro</label>
+                                        </div>
+                                        <div class="d-flex flex-row justify-content-between align-items-center">                                     
+                                            <div class="mb-3 me-2" style="flex: 1;">
+                                                <span class="text-muted">Tipo de cambio</span>
+                                                <select class="form-select" aria-label="Default select example" [ngModelOptions]="{standalone: true}" [(ngModel)]="tempTipoCambio">
+                                                @for(tipo of ["Electronico","Manual"]; track $index)
+                                                {
+                                                    <option [value]="tipo">{{tipo}}</option>
+                                                }
+                                                </select>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label for="grupoCambio">Grupo o cambio</label>
+                                                <input type="text" class="form-control" id="grupoCambio" placeholder="ej: shimano durace di2" formControlName="grupoCambio">
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-row justify-content-between align-items-center">                                     
+                                            <div class="mb-3 me-2" style="flex: 1;">
+                                                <span class="text-muted">Tipo de freno</span>
+                                                <select class="form-select" aria-label="Default select example" formControlName="tipoFreno">
+                                                @for(tipo of ["Disco","Zapata", "tambor"]; track $index)
+                                                {
+                                                    <option [value]="tipo">{{tipo}}</option>
+                                                }
+                                                </select>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label for="modeloFrenos">Modelo frenos</label>
+                                                <input type="text" class="form-control" id="modeloFrenos" placeholder="ej: shimano ultegra" formControlName="modeloFrenos">
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-row justify-content-between align-items-center">                                     
+                                            <div class="mb-3 me-2" style="flex: 1;">
+                                                <span class="text-muted">Tipo de ruedas</span>
+                                                <select class="form-select" aria-label="Default select example" formControlName="tipoRuedas">
+                                                @for(tipo of ["Carbono","Aluminio", "Acero"]; track $index)
+                                                {
+                                                    <option [value]="tipo">{{tipo}}</option>
+                                                }
+                                                </select>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label for="modeloRuedas">Modelo ruedas</label>
+                                                <input type="text" class="form-control" id="modeloRuedas" placeholder="ej: mavic cosmic pro carbon" formControlName="modeloRuedas">
+                                            </div>                                      
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="precioOriginal" placeholder="precio original" formControlName="precioOriginal">
+                                            <label for="precioOriginal">Precio original(opcional)</label>
+                                        </div>
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" id="tieneFactura" formControlName="tieneFactura">
+                                            <label class="form-check-label" for="tieneFactura">
+                                                ¿Tienes la factura de compra?
+                                            </label>
+                                        </div>                                                                                                                                           
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item mb-2">
+                                <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#3-condicion" aria-expanded="false" aria-controls="3-condicion">
+                                    <span class="me-3" style="border-radius: 50px; background-color: black; color:white; width: 30px; height: 30px; display: inline-flex; justify-content: center; align-items: center;"> 3 </span> Especifica la condición
+                                </button>
+                                </h2>
+                                <div id="3-condicion" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div class="mb-3 rounded-3 p-3" style="background-color: #f8f9fa;">
+                                            <strong><i class="fa-solid fa-circle-info" style="color: blue;"></i> Sé preciso sobre el estado de tu bici.</strong>
+                                            <p class="text-muted">Se preciso para que los compradores sepan que esperar; esto evita cancelaciones y te ahorra
+                                            costes de devolución. Asegúate de que tus fotos muestran cualquier daño o desgaste.</p>
+                                        </div>
+                                        <div class="d-flex flex-row justify-content-between align-items-center">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" value="Nuevo" id="nuevo" formControlName="condicion">
+                                                <label class="form-check-label" for="nuevo">
+                                                    <strong>Nuevo</strong>
+                                                    <p class="text-muted">Sin uso, en su embalaje original y con todos los accesorios.</p>
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" value="Muy nuevo" id="Muy bueno" formControlName="condicion">
+                                                <label class="form-check-label" for="Muy bueno">
+                                                    <strong>Muy bueno</strong>
+                                                    <p class="text-muted">La bici puede tener imperfecciones menores o esteticas en el cuadro,pero está en excelente estado.</p>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-row justify-content-between align-items-center">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" value="Bueno" id="bueno" formControlName="condicion">
+                                                <label class="form-check-label" for="bueno">
+                                                    <strong>Bueno</strong>
+                                                    <p class="text-muted">La bici podría necesitar mantenimiento o reparaciones menores. No tiene problemas mecanicos importantes.</p>
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" value="Aceptable" id="aceptable" formControlName="condicion">
+                                                <label class="form-check-label" for="aceptable">
+                                                    <strong>Aceptable</strong>
+                                                    <p class="text-muted">La bici tiene problemas mecánicos importantes o daños visibles. Necesita una revisión a fondo.</p>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 mt-2 d-flex flex-column justify-content-start align-items-start">
+                                            <strong>Proporciona más detalles</strong>
+                                            <span style="color: blue; font-size: 0.75rem;"> <i class="fa-regular fa-handshake"></i> <strong> ¡Más detalles generan confianza! </strong>Añade cualquier información adicional que consideres relevante.</span>
+                                            <textarea class="form-control mt-2" maxlength="1000" id="detallesAdicionales" rows="5" placeholder="ej: Pequeño arañazo en el tubo superior..." formControlName="detallesAdicionales"></textarea>
+                                        </div>                             
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item mb-2">
+                                <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#4-fotos" aria-expanded="false" aria-controls="4-fotos">
+                                    <span class="me-3" style="border-radius: 50px; background-color: black; color:white; width: 30px; height: 30px; display: inline-flex; justify-content: center; align-items: center;"> 4 </span> Sube tus fotos
+                                </button>
+                                </h2>
+                                <div id="4-fotos" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div class="mb-3 d-flex flex-column justify-content-start align-items-start">
+                                            <span class="text-muted" style="font-size: 0.75rem;"> Haz click o arrastra para subir las fotos. Maximo 10 fotos, Minimo 3 fotos requeridas. La primera foto será la principal de tu anuncio.</span>
+                                            <img src="/images/imagenes_anuncio_placeholder.png" alt="Sube tus fotos" class="img-fluid mt-2" style="max-width: 300px; border: 2px dashed #ced4da; border-radius: 10px; padding: 20px; cursor: pointer;" (click)="inputfile.click()">
+                                            <input type="file" #inputfile class="form-control mt-2" id="fotosAnuncio" multiple hidden (change)="onFileSelected($event)">
+                                            @if (errorFotos !== '') {
+                                                <div class="text-danger small mt-2 fw-bold">
+                                                    {{ errorFotos }}
+                                                </div>
+                                            }
+                                        </div>                             
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item mb-2">
+                                <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#5-pontuprecio" aria-expanded="false" aria-controls="5-pontuprecio">
+                                    <span class="me-3" style="border-radius: 50px; background-color: black; color:white; width: 30px; height: 30px; display: inline-flex; justify-content: center; align-items: center;"> 5 </span> Pon tu precio
+                                </button>
+                                </h2>
+                                <div id="5-pontuprecio" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div class="form-group mb-3">
+                                            <label for="precioventa"><strong>Tu precio de venta</strong></label>
+                                            <input type="number" class="form-control" id="precioventa" placeholder="ej: 500.00" formControlName="precioVenta">
+                                            @if (miForm.get('precioVenta')?.hasError('required') && miForm.get('precioVenta')?.touched) {
+                                                <div class="text-danger small mt-1">El precio de venta es obligatorio.</div>
+                                            }
+                                        </div>
+                                        <div class="d-flex flex-row justify-content-between align-items-center">
+                                            <span class="text-muted">Proteccion al vendedor <i class="fa-solid fa-circle-info"></i></span>
+                                            <span><strong>{{ (miForm.get('precioVenta')?.value || 0) * 0.075 | currency:'EUR' }}</strong></span>
+                                        </div>
+                                        <div class="mb-3 rounded-3 p-3" style="background-color: #f8f9fa;">
+                                            <strong><i class="fa-solid fa-truck-arrow-right"></i> La proteccion al vendedor cubre el envio.</strong>
+                                            <p class="text-muted mt-2"><i class="fa-solid fa-circle-check"></i> Te enviamos el material de embalaje y una etiqueta preparada, sin coste alguno.
+                                                Tu solo tienes que embalar la bicicleta y nosotros nos encargamos del resto.
+                                            </p>
+                                            <p class="text-muted"><i class="fa-solid fa-circle-check"></i> Lo recogeremos en tu puerta y lo enviaremos al comprador en 23 paises europeos. Sin complicaciones, sin riesgos.</p>
+                                        </div>
+                                        <div class="d-flex flex-row justify-content-between align-items-center">
+                                            <span><strong>Tu ganancia total</strong></span>
+                                            <span><strong>{{ (miForm.get('precioVenta')?.value || 0) - ((miForm.get('precioVenta')?.value || 0) * 0.075) | currency:'EUR' }}</strong></span>
+                                        </div>                             
+                                       
+                                    </div>
+                                </div>
+                            </div>                             
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col d-flex flex-row justify-content-between align-items-center">
+                        <button class="btn btn-secondary me-2 w-50" (click)="submitAnuncio(true)">Guardar borrador</button>
+                        <button class="btn btn-dark w-50" (click)="submitAnuncio(false)">Publicar anuncio</button>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+
+
+
+        <div class="col-6">
+            <div class="container">
+                <div class="row">
+                    <div class="col border rounded-3 p-3">
+                            @if (imagenesPrevisualizacion().length > 0) {
+                                <img [src]="imagenesPrevisualizacion()[0]" alt="Imagen anuncio" class="img-fluid mb-3" style="max-height: 300px; width: 100%; object-fit: cover;">
+                            } @else {
+                                <img src="/images/imagenes_anuncio_placeholder_2.png" alt="Imagen anuncio" class="img-fluid mb-3" style="max-width: 100%;">
+                            }
+                            
+                            <div class="d-flex flex-row justify-content-between align-items-center">
+                                <i class="fa-solid fa-angle-left" style="cursor:pointer"></i>
+                                @for(imagen of imagenesPrevisualizacion(); track $index)
+                                {
+                                    <img [src]="imagen" alt="Imagen anuncio pequeña" class="img-fluid me-2" style="max-width: 30%; height: 60px; object-fit: cover;">
+                                }
+                                <i class="fa-solid fa-angle-right" style="cursor:pointer"></i>
+                            </div>
+                            <div class="d-flex flex-row justify-content-between align-items-center mb-2">
+                                <span style="font-size: larger; font-weight: bold;">
+                                    {{ miForm.get('marca')?.value }} {{ miForm.get('modelo')?.value }} ({{ miForm.get('anioModelo')?.value }})
+                                </span>
+                                <span style="font-size: larger; font-weight: bold;">
+                                    {{ miForm.get('precioVenta')?.value | currency:'EUR' }}
+                                </span>
+                            </div>
+                    </div>
+                </div>
+                <div class="row border rounded-3 p-3 mt-3">
+                    <div class="col-4 d-flex flex-column justify-content-start align-items-start"><span class="text-muted">Tamaño del cuadro</span> {{ miForm.get('talla')?.value }} </div>
+                    <div class="col-4 d-flex flex-column justify-content-start align-items-start"><span class="text-muted">Material del cuadro</span> {{ miForm.get('materialCuadro')?.value }} </div>
+                    <div class="col-4 d-flex flex-column justify-content-start align-items-start"><span class="text-muted">Fecha compra</span> {{ miForm.get('fechaCompra')?.value }} </div>
+                </div>
+                <div class="row border rounded-3 p-3 mt-3">
+                    <div class="col-4 d-flex flex-column justify-content-start align-items-start"><span class="text-muted">Grupo</span> {{ miForm.get('grupoCambio')?.value }} </div>
+                    <div class="col-4 d-flex flex-column justify-content-start align-items-start"><span class="text-muted">Frenos</span> {{ miForm.get('tipoFreno')?.value }} {{ miForm.get('modeloFrenos')?.value }} </div>
+                    <div class="col-4 d-flex flex-column justify-content-start align-items-start"><span class="text-muted">Condicion</span> {{ miForm.get('condicion')?.value }} </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

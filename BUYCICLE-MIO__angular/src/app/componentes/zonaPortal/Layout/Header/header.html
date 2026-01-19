@@ -1,0 +1,93 @@
+<div class="container">
+    <div class="row">
+        <div class="col d-flex flex-row justify-content-between" style="background-color: black; color: white; padding: 10px;">
+            <div class="d-flex flex-row justify-content-center m-2">
+                <span>Excelente </span>
+                <div>
+                    @for(star of [1,2,3,4,5]; track $index){
+                        <i class="fa-solid fa-star ms-1" [ngStyle]="{'background-color': star <= 4 ? 'green' : 'grey', 'padding-left': '2px'}"></i>
+                    }                        
+                </div>
+                <div class="ms-2"><i class="fa-solid fa-star ms-1" style="color:green"></i><span>Trutspilot</span></div>                
+            </div>
+            <div class="d-flex flex-row justify-content-center">
+                <div class="m-2"><i class="fa-regular fa-circle-check"></i><span>  Más de 100.000 bicicletas, piezas de bicicleta y accesorios</span></div>
+                <div class="m-2"><i class="fa-regular fa-circle-check"></i><span>  Confian en nosotros mas de 1 millón de ciclistas</span></div>
+                <div class="m-2"><i class="fa-regular fa-circle-check"></i><span>  Envio Seguro</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- logo, caja de texto busqueda productos y botones inicio sesion/panel cliente y vender-->
+    <div class="row">
+        <div class="col">
+              <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+                <div class="container">
+                    <div class="d-flex flex-row justify-content-between align-items-center w-100">
+                        <div>
+                            <a class="navbar-brand" href="#">
+                                <img src="/images/logo_buycycle.png" alt="Logo Buycicle Mio" width="140" height="34">
+                            </a>
+                            <div class="input-group d-inline-flex me-4" style="width: 500px;">
+                                <input class="form-control me-2" type="search" placeholder="Busca 100k+ articulos de ciclismo y mas..." aria-label="Search">
+                                <button class="btn btn-outline-secondary" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-row justify-content-center align-items-center">
+                            <button class="btn btn-outline-secondary me-2"><i class="fa-solid fa-gear"></i></button>
+                            <button class="btn btn-outline-secondary me-2"><i class="fa-regular fa-heart"></i></button>
+                            <button class="btn btn-outline-secondary me-2"><i class="fa-regular fa-comment"></i></button>
+                            @if(cliente()){
+                                <a class="btn btn-outline-secondary me-2" [routerLink]="['/Cliente/DatosPersonales']"><img [src]="cliente()!.cuenta.imagenAvatar" class="rounded-circle me-3" alt="Mi cuenta" width="20" height="20"> Mi cuenta</a>
+                            } @else {                                   
+                                <button class="btn btn-outline-secondary me-2" data-bs-toggle="modal" data-bs-target="#modalLoginRegistro">Iniciar Sesion</button>
+                            }
+                            <button class="btn btn-dark">Vender</button>
+                        </div>
+                    </div>
+                </div>
+              </nav>            
+        </div>
+    </div>
+
+    <!-- navbar con categorias principales -->
+    <div class="row">
+        <div class="col">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            @for(cat of categorias(); track $index){
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        @if(cat.nombreCategoria.toLowerCase()=='ciclismo') {
+                                            <i class="fa-solid fa-person-biking"></i>
+                                        }
+                                        @if(cat.nombreCategoria.toLowerCase()=='running') {
+                                            <i class="fa-solid fa-person-running"></i>
+                                        }
+                                        @if(cat.nombreCategoria.toLowerCase()=='deporte de invierno') {
+                                            <i class="fa-solid fa-person-skiing"></i>
+                                        }
+                                        {{cat.nombreCategoria}}
+                                    </a>
+                                </li>
+                            }@empty {
+                                <li class="nav-item px-3 py-2 text-danger">Error cargando categorías</li>
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+</div>
+
+<!-- Modal -->
+ <app-loginregistro></app-loginregistro>

@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row">
+        <div class="col-2">
+            <div class="list-group list-group-flush" style="background-color: #E5E7EB;">
+                <a  class="list-group-item list-group-item-action" [routerLink]="['/Cliente/BandejaDeEntrada']" routerLinkActive="router-link-active" ><i class="fa-regular fa-comment"></i> Bandeja de entrada</a>
+                <a  class="list-group-item list-group-item-action" [routerLink]="['/Cliente/PedidosYVentas']" routerLinkActive="router-link-active"><i class="fa-solid fa-box-archive"></i> Pedidos y ventas</a>
+                <a  class="list-group-item list-group-item-action" [routerLink]="['/Cliente/Personalizacion']" routerLinkActive="router-link-active"><i class="fa-regular fa-star"></i> Personalizacion</a>
+                <a  class="list-group-item list-group-item-action" [routerLink]="['/Cliente/MisAnuncios']" routerLinkActive="router-link-active"><i class="fa-solid fa-bullhorn"></i> Mis anuncios</a>
+                <a  class="list-group-item list-group-item-action" [routerLink]="['/Cliente/BusquedasGuardadas']" routerLinkActive="router-link-active"><i class="fa-brands fa-searchengin"></i> Busquedas guardadas</a>
+                <a  class="list-group-item list-group-item-action" [routerLink]="['/Cliente/DatosPersonales']" routerLinkActive="router-link-active"><i class="fa-solid fa-user"></i> Datos personales</a>
+                <a  class="list-group-item list-group-item-action" ><i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar sesion</a>
+            </div>            
+        </div>
+        <div class="col-10">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

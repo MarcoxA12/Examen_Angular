@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="row mt-2 mb-4">
+        <div class="col">
+            <app-datos-personales-card [datosPersonalesCard]="datosPersonalesCard()"></app-datos-personales-card>
+        </div>
+    </div>
+    <div class="row mt-2 mb-4">
+        <div class="col">
+            <app-email-tlfno-card [datosEmailTlfnoCard]="datosEmailTlfnoCard()"></app-email-tlfno-card>
+        </div>
+    </div>
+    @for(dir of datosDireccionesCard(); track $index){
+    <div class="row mt-2 mb-4">
+        <div class="col">
+            <app-direcc-envio-fact-card [tipo]="dir.tipo" [direccion]="dir.direccion"></app-direcc-envio-fact-card>
+        </div>
+    </div>
+    }
+</div>
